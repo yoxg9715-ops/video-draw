@@ -113,6 +113,74 @@ def draw():
     )
 
 
+# ------------------------------------------------------------
+# 3) 원인 찾기용 테스트 주소 (문제가 해결되면 지워도 돼요)
+# ------------------------------------------------------------
+@app.route("/t1", methods=["POST"])
+def test1():
+    """글자 말풍선 1개만"""
+    return jsonify(
+        {"version": "2.0", "template": {"outputs": [{"simpleText": {"text": "테스트1 성공"}}]}}
+    )
+
+
+@app.route("/t2", methods=["POST"])
+def test2():
+    """썸네일 없는 카드 + 버튼"""
+    return jsonify(
+        {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "basicCard": {
+                            "title": "테스트2",
+                            "description": "썸네일 없는 카드",
+                            "buttons": [
+                                {
+                                    "action": "webLink",
+                                    "label": "영상 보기",
+                                    "webLinkUrl": "https://youtu.be/krj-SnNnD4A",
+                                }
+                            ],
+                        }
+                    }
+                ]
+            },
+        }
+    )
+
+
+@app.route("/t3", methods=["POST"])
+def test3():
+    """썸네일 있는 카드 (바로가기 버튼 없음)"""
+    return jsonify(
+        {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "basicCard": {
+                            "title": "테스트3",
+                            "description": "썸네일 있는 카드",
+                            "thumbnail": {
+                                "imageUrl": "https://img.youtube.com/vi/krj-SnNnD4A/hqdefault.jpg"
+                            },
+                            "buttons": [
+                                {
+                                    "action": "webLink",
+                                    "label": "영상 보기",
+                                    "webLinkUrl": "https://youtu.be/krj-SnNnD4A",
+                                }
+                            ],
+                        }
+                    }
+                ]
+            },
+        }
+    )
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
