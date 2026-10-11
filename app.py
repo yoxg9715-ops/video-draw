@@ -2,9 +2,20 @@ import os
 import random
 import re
 
-from flask import Flask, jsonify
+import json
+
+from flask import Flask, Response
 
 app = Flask(__name__)
+
+
+def jsonify(data):
+    """카카오가 읽기 쉽도록 한글을 그대로, UTF-8 헤더를 붙여서 보내요."""
+    return Response(
+        json.dumps(data, ensure_ascii=False),
+        status=200,
+        content_type="application/json; charset=utf-8",
+    )
 
 # ------------------------------------------------------------
 # 1) 영상 목록 (제목, 링크)
